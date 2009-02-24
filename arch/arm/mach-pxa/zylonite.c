@@ -164,15 +164,15 @@ static struct pxafb_mach_info zylonite_toshiba_lcd_info = {
 static struct pxafb_mode_info sharp_ls037_modes[] = {
 	[0] = {
 		.pixclock	= 158000,
-		.xres		= 240,
+		.xres		= 320,
 		.yres		= 320,
 		.bpp		= 16,
 		.hsync_len	= 4,
-		.left_margin	= 39,
-		.right_margin	= 39,
+		.left_margin	= 36,
+		.right_margin	= 36,
 		.vsync_len	= 1,
-		.upper_margin	= 2,
-		.lower_margin	= 3,
+		.upper_margin	= 4,
+		.lower_margin	= 0,
 		.sync		= 0,
 	},
 	[1] = {
@@ -311,45 +311,78 @@ static inline void zylonite_init_mmc(void) {}
 #if defined(CONFIG_KEYBOARD_PXA27x) || defined(CONFIG_KEYBOARD_PXA27x_MODULE)
 static unsigned int zylonite_matrix_key_map[] = {
 	/* KEY(row, col, key_code) */
-	KEY(0, 0, KEY_A), KEY(0, 1, KEY_B), KEY(0, 2, KEY_C), KEY(0, 5, KEY_D),
-	KEY(1, 0, KEY_E), KEY(1, 1, KEY_F), KEY(1, 2, KEY_G), KEY(1, 5, KEY_H),
-	KEY(2, 0, KEY_I), KEY(2, 1, KEY_J), KEY(2, 2, KEY_K), KEY(2, 5, KEY_L),
-	KEY(3, 0, KEY_M), KEY(3, 1, KEY_N), KEY(3, 2, KEY_O), KEY(3, 5, KEY_P),
-	KEY(5, 0, KEY_Q), KEY(5, 1, KEY_R), KEY(5, 2, KEY_S), KEY(5, 5, KEY_T),
-	KEY(6, 0, KEY_U), KEY(6, 1, KEY_V), KEY(6, 2, KEY_W), KEY(6, 5, KEY_X),
-	KEY(7, 1, KEY_Y), KEY(7, 2, KEY_Z),
+/* 1st row */	
+KEY(0, 0, KEY_Q), 
+KEY(7, 1, KEY_W), 
+KEY(2, 0, KEY_E), 
+KEY(3, 0, KEY_R), 
+KEY(4, 0, KEY_T), 
+KEY(0, 4, KEY_Y), 
+KEY(1, 4, KEY_U), 
+KEY(2, 4, KEY_I), 
+KEY(3, 4, KEY_O), 
+KEY(4, 4, KEY_P),
+/* 2nd row */	
+KEY(0, 1, KEY_A), 
+KEY(7, 2, KEY_S),
+KEY(2, 1, KEY_D), 
+KEY(3, 1, KEY_F), 
+KEY(4, 1, KEY_G), 
+KEY(0, 5, KEY_H), 
+KEY(1, 5, KEY_J), 
+KEY(2, 5, KEY_K), 
+KEY(3, 5, KEY_L), 
+KEY(4, 5, KEY_BACKSPACE),
+/* 3rd row */   
+KEY(0, 2, KEY_LEFTCTRL), 
+KEY(1, 2, KEY_Z), 
+KEY(2, 2, KEY_X), 
+KEY(3, 2, KEY_C), 
+KEY(4, 2, KEY_V),
+KEY(0, 6, KEY_B), 
+KEY(1, 6, KEY_N), 
+KEY(2, 6, KEY_M), 
+KEY(3, 6, KEY_DOT), 
+KEY(4, 6, KEY_ENTER),
+/* 4th row */	
+KEY(0, 3, KEY_LEFTSHIFT), 
+KEY(1, 3, KEY_LEFTALT), 
+KEY(2, 3, KEY_0), 
+KEY(3, 3, KEY_SPACE), 
+KEY(4, 3, KEY_COMMA), 
+KEY(7, 6, KEY_SLASH), 
+KEY(5, 1, KEY_TAB),
 
-	KEY(4, 4, KEY_0), KEY(1, 3, KEY_1), KEY(4, 1, KEY_2), KEY(1, 4, KEY_3),
-	KEY(2, 3, KEY_4), KEY(4, 2, KEY_5), KEY(2, 4, KEY_6), KEY(3, 3, KEY_7),
-	KEY(4, 3, KEY_8), KEY(3, 4, KEY_9),
+/* Volume Keys */
+KEY(1, 0, KEY_UP), 
+KEY(1, 1, KEY_DOWN),
 
-	KEY(4, 5, KEY_SPACE),
-	KEY(5, 3, KEY_KPASTERISK), 	/* * */
-	KEY(5, 4, KEY_KPDOT), 		/* #" */
+/* Win, Center, Ok Key*/
+KEY(5, 2, KEY_HOME),
+KEY(6, 4, KEY_ENTER),  
+KEY(5, 3, KEY_END),
 
-	KEY(0, 7, KEY_UP),
-	KEY(1, 7, KEY_DOWN),
-	KEY(2, 7, KEY_LEFT),
-	KEY(3, 7, KEY_RIGHT),
-	KEY(2, 6, KEY_HOME),
-	KEY(3, 6, KEY_END),
-	KEY(6, 4, KEY_DELETE),
-	KEY(6, 6, KEY_BACK),
-	KEY(6, 3, KEY_CAPSLOCK),	/* KEY_LEFTSHIFT), */
+/* Left Softkey, Right Softkey*/
+KEY(5, 4, KEY_MINUS), 
+KEY(5, 6, KEY_EQUAL),
 
-	KEY(4, 6, KEY_ENTER),		/* scroll push */
-	KEY(5, 7, KEY_ENTER),		/* keypad action */
+/* Green and Red Key */
+KEY(5, 5, KEY_PAGEUP),
+KEY(7, 0, KEY_PAGEDOWN), 
 
-	KEY(0, 4, KEY_EMAIL),
-	KEY(5, 6, KEY_SEND),
-	KEY(4, 0, KEY_CALENDAR),
-	KEY(7, 6, KEY_RECORD),
-	KEY(6, 7, KEY_VOLUMEUP),
-	KEY(7, 7, KEY_VOLUMEDOWN),
+/* Camera */
+KEY(7, 3, KEY_ESC),
 
-	KEY(0, 6, KEY_F22),	/* soft1 */
-	KEY(1, 6, KEY_F23),	/* soft2 */
-	KEY(0, 3, KEY_AUX),	/* contact */
+/* Not used */
+KEY(5, 0, KEY_1),
+KEY(6, 0, KEY_2),
+KEY(6, 1, KEY_3),
+KEY(6, 2, KEY_4),
+KEY(6, 5, KEY_5),
+KEY(6, 6, KEY_6),
+KEY(7, 4, KEY_7),
+KEY(7, 5, KEY_8),
+
 };
 
 static struct pxa27x_keypad_platform_data zylonite_keypad_info = {
