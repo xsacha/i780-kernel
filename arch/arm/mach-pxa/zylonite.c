@@ -128,92 +128,31 @@ static struct platform_device zylonite_backlight_device = {
 	},
 };
 
-static struct pxafb_mode_info toshiba_ltm035a776c_mode = {
-	.pixclock		= 110000,
-	.xres			= 240,
-	.yres			= 320,
-	.bpp			= 16,
-	.hsync_len		= 4,
-	.left_margin		= 6,
-	.right_margin		= 4,
-	.vsync_len		= 2,
-	.upper_margin		= 2,
-	.lower_margin		= 3,
-	.sync			= FB_SYNC_VERT_HIGH_ACT,
-};
-
-static struct pxafb_mode_info toshiba_ltm04c380k_mode = {
-	.pixclock		= 50000,
-	.xres			= 640,
-	.yres			= 480,
-	.bpp			= 16,
-	.hsync_len		= 1,
-	.left_margin		= 0x9f,
-	.right_margin		= 1,
-	.vsync_len		= 44,
-	.upper_margin		= 0,
-	.lower_margin		= 0,
-	.sync			= FB_SYNC_HOR_HIGH_ACT|FB_SYNC_VERT_HIGH_ACT,
-};
-
-static struct pxafb_mach_info zylonite_toshiba_lcd_info = {
-	.num_modes      	= 1,
-	.lcd_conn		= LCD_COLOR_TFT_16BPP | LCD_PCLK_EDGE_FALL,
-};
-
-static struct pxafb_mode_info sharp_ls037_modes[] = {
-	[0] = {
-		.pixclock	= 158000,
+static struct pxafb_mode_info i780_mode = {
+		.pixclock	= 110000,
 		.xres		= 320,
 		.yres		= 320,
 		.bpp		= 16,
-		.hsync_len	= 4,
-		.left_margin	= 36,
-		.right_margin	= 36,
-		.vsync_len	= 1,
-		.upper_margin	= 4,
-		.lower_margin	= 0,
+		.hsync_len	= 16,
+		.left_margin	= 24,
+		.right_margin	= 24,
+		.vsync_len	= 2,
+		.upper_margin	= 3,
+		.lower_margin	= 1,
 		.sync		= 0,
-	},
-	[1] = {
-		.pixclock	= 39700,
-		.xres		= 480,
-		.yres		= 640,
-		.bpp		= 16,
-		.hsync_len	= 8,
-		.left_margin	= 81,
-		.right_margin	= 81,
-		.vsync_len	= 1,
-		.upper_margin	= 2,
-		.lower_margin	= 7,
-		.sync		= 0,
-	},
 };
 
-static struct pxafb_mach_info zylonite_sharp_lcd_info = {
-	.modes			= sharp_ls037_modes,
-	.num_modes		= 2,
+static struct pxafb_mach_info zylonite_i780_lcd_info = {
+	.num_modes		= 1,
 	.lcd_conn		= LCD_COLOR_TFT_16BPP | LCD_PCLK_EDGE_FALL,
 };
 
 static void __init zylonite_init_lcd(void)
 {
 	platform_device_register(&zylonite_backlight_device);
+	zylonite_i780_lcd_info.modes = &i780_mode;
 
-	if (lcd_id & 0x20) {
-		set_pxa_fb_info(&zylonite_sharp_lcd_info);
-		return;
-	}
-
-	/* legacy LCD panels, it would be handy here if LCD panel type can
-	 * be decided at run-time
-	 */
-	if (1)
-		zylonite_toshiba_lcd_info.modes = &toshiba_ltm035a776c_mode;
-	else
-		zylonite_toshiba_lcd_info.modes = &toshiba_ltm04c380k_mode;
-
-	set_pxa_fb_info(&zylonite_toshiba_lcd_info);
+	set_pxa_fb_info(&zylonite_i780_lcd_info);
 }
 #else
 static inline void zylonite_init_lcd(void) {}
@@ -311,67 +250,68 @@ static inline void zylonite_init_mmc(void) {}
 #if defined(CONFIG_KEYBOARD_PXA27x) || defined(CONFIG_KEYBOARD_PXA27x_MODULE)
 static unsigned int zylonite_matrix_key_map[] = {
 	/* KEY(row, col, key_code) */
-/* 1st row */	
-KEY(0, 0, KEY_Q), 
-KEY(7, 1, KEY_W), 
-KEY(2, 0, KEY_E), 
-KEY(3, 0, KEY_R), 
-KEY(4, 0, KEY_T), 
-KEY(0, 4, KEY_Y), 
-KEY(1, 4, KEY_U), 
-KEY(2, 4, KEY_I), 
-KEY(3, 4, KEY_O), 
+
+/* 1st row */
+KEY(0, 0, KEY_Q),
+KEY(7, 1, KEY_W),
+KEY(2, 0, KEY_E),
+KEY(3, 0, KEY_R),
+KEY(4, 0, KEY_T),
+KEY(0, 4, KEY_Y),
+KEY(1, 4, KEY_U),
+KEY(2, 4, KEY_I),
+KEY(3, 4, KEY_O),
 KEY(4, 4, KEY_P),
-/* 2nd row */	
-KEY(0, 1, KEY_A), 
+/* 2nd row */
+KEY(0, 1, KEY_A),
 KEY(7, 2, KEY_S),
-KEY(2, 1, KEY_D), 
-KEY(3, 1, KEY_F), 
-KEY(4, 1, KEY_G), 
-KEY(0, 5, KEY_H), 
-KEY(1, 5, KEY_J), 
-KEY(2, 5, KEY_K), 
-KEY(3, 5, KEY_L), 
+KEY(2, 1, KEY_D),
+KEY(3, 1, KEY_F),
+KEY(4, 1, KEY_G),
+KEY(0, 5, KEY_H),
+KEY(1, 5, KEY_J),
+KEY(2, 5, KEY_K),
+KEY(3, 5, KEY_L),
 KEY(4, 5, KEY_BACKSPACE),
-/* 3rd row */   
-KEY(0, 2, KEY_LEFTCTRL), 
-KEY(1, 2, KEY_Z), 
-KEY(2, 2, KEY_X), 
-KEY(3, 2, KEY_C), 
+/* 3rd row */
+KEY(0, 2, KEY_LEFTCTRL),
+KEY(1, 2, KEY_Z),
+KEY(2, 2, KEY_X),
+KEY(3, 2, KEY_C),
 KEY(4, 2, KEY_V),
-KEY(0, 6, KEY_B), 
-KEY(1, 6, KEY_N), 
-KEY(2, 6, KEY_M), 
-KEY(3, 6, KEY_DOT), 
+KEY(0, 6, KEY_B),
+KEY(1, 6, KEY_N),
+KEY(2, 6, KEY_M),
+KEY(3, 6, KEY_DOT),
 KEY(4, 6, KEY_ENTER),
-/* 4th row */	
-KEY(0, 3, KEY_LEFTSHIFT), 
-KEY(1, 3, KEY_LEFTALT), 
-KEY(2, 3, KEY_0), 
-KEY(3, 3, KEY_SPACE), 
-KEY(4, 3, KEY_COMMA), 
-KEY(7, 6, KEY_SLASH), 
+/* 4th row */
+KEY(0, 3, KEY_LEFTSHIFT),
+KEY(1, 3, KEY_LEFTALT),
+KEY(2, 3, KEY_0),
+KEY(3, 3, KEY_SPACE),
+KEY(4, 3, KEY_COMMA),
+KEY(7, 6, KEY_SLASH),
 KEY(5, 1, KEY_TAB),
 
 /* Volume Keys */
-KEY(1, 0, KEY_UP), 
+KEY(1, 0, KEY_UP),
 KEY(1, 1, KEY_DOWN),
 
 /* Win, Center, Ok Key*/
 KEY(5, 2, KEY_HOME),
-KEY(6, 4, KEY_ENTER),  
+KEY(6, 4, KEY_ENTER),
 KEY(5, 3, KEY_END),
 
 /* Left Softkey, Right Softkey*/
-KEY(5, 4, KEY_MINUS), 
+KEY(5, 4, KEY_MINUS),
 KEY(5, 6, KEY_EQUAL),
 
 /* Green and Red Key */
 KEY(5, 5, KEY_PAGEUP),
-KEY(7, 0, KEY_PAGEDOWN), 
+KEY(7, 0, KEY_PAGEDOWN),
 
 /* Camera */
-KEY(7, 3, KEY_ESC),
+KEY(7, 3, KEY_1),
 
 /* Not used */
 KEY(5, 0, KEY_1),
@@ -383,11 +323,13 @@ KEY(6, 6, KEY_6),
 KEY(7, 4, KEY_7),
 KEY(7, 5, KEY_8),
 
+
+
 };
 
 static struct pxa27x_keypad_platform_data zylonite_keypad_info = {
 	.matrix_key_rows	= 8,
-	.matrix_key_cols	= 8,
+	.matrix_key_cols	= 7,
 	.matrix_key_map		= zylonite_matrix_key_map,
 	.matrix_key_map_size	= ARRAY_SIZE(zylonite_matrix_key_map),
 
