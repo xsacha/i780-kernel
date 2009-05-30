@@ -252,8 +252,7 @@ void __init zylonite_pxa300_init(void)
 		zylonite_detect_lcd_panel();
 
 		/* MMC card detect & write protect for controller 0 */
-		zylonite_mmc_slot[0].gpio_cd  = EXT_GPIO(0);
-		zylonite_mmc_slot[0].gpio_wp  = EXT_GPIO(2);
+		zylonite_mmc_slot[0].gpio_cd  = EXT_GPIO(105);
 
 		/* WM9713 IRQ */
 		wm9713_irq = mfp_to_gpio(MFP_PIN_GPIO26);
@@ -269,10 +268,6 @@ void __init zylonite_pxa300_init(void)
 	if (cpu_is_pxa310()) {
 		pxa3xx_mfp_config(ARRAY_AND_SIZE(pxa310_mfp_cfg));
 		gpio_eth_irq = mfp_to_gpio(MFP_PIN_GPIO102);
-
-		/* MMC card detect & write protect for controller 2 */
-		zylonite_mmc_slot[2].gpio_cd = EXT_GPIO(30);
-		zylonite_mmc_slot[2].gpio_wp = EXT_GPIO(31);
 	}
 
 	/* GPIOs for Debug LEDs */
