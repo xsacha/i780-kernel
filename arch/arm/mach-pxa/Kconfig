@@ -258,6 +258,12 @@ config MACH_COLIBRI
 	bool "Toradex Colibri PX27x"
 	select PXA27x
 
+config MACH_I780
+	bool "Samsung i780 Mobile Phone"
+	select PXA3xx
+	select PXA_SSP
+	select HAVE_PWM
+
 config MACH_ZYLONITE
 	bool "PXA3xx Development Platform (aka Zylonite)"
 	select PXA3xx

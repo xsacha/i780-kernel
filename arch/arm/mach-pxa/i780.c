@@ -294,7 +294,7 @@ static void __init i780_init(void)
 	i780_init_ohci();
 }
 
-MACHINE_START(ZYLONITE, "Samsung i780 Mobile Phone")
+MACHINE_START(I780, "Samsung i780 Mobile Phone")
 	.phys_io	= 0x40000000,
 	.boot_params	= 0xa0000100,
 	.io_pg_offst	= (io_p2v(0x40000000) >> 18) & 0xfffc,
