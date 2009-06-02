@@ -509,7 +509,7 @@ void __init i780_pxa300_init(void)
 	i780_detect_lcd_panel();
 
 	/* WM9713 IRQ */
-	wm9713_irq = mfp_to_gpio(MFP_PIN_GPIO26);
+	wm9713_irq = mfp_to_gpio(MFP_PIN_GPIO23);
 
 	i780_init_i2c();
 
